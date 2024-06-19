@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('contact')->nullable();
             $table->text('address')->nullable();
-            $table->string('pincode', 6);
+            $table->string('pincode', 6)->nullable();
             $table->boolean('status')->comment("1:Active,0:Inactive")->default(1);
             $table->timestamps();
         });
