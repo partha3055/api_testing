@@ -43,4 +43,5 @@ use App\Http\Controllers\Api\UserController;
 
 //Route::post('user/store', 'App\Http\Controllers\Api\UserController@store');
 Route::post('user/store', [UserController::class, 'store']);
-Route::get('user', [UserController::class, 'index']);
+Route::get('user/show/{id}', [UserController::class, 'show']);
+Route::get('user/{flag}', [UserController::class, 'index']);

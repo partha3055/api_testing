@@ -16,11 +16,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($flag)
     {
         //p("Get api is working");
-        $users = User::all();
-        p($users);
+        $users = User::select('name', 'email')->where('status', 1)->where('pincode', '<>', null)->where('id', $flag)->get();
+        //p($users);
+        if (count($users) > 0) {
+            $response = [
+                'message' => count($users) . ' users found',
+                'status' => 1,
+                'data' => $users
+            ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'message' => 'No user found',
+                'status' => 0
+            ];
+            return response()->json($response, 200);
+        }
     }
 
     /**
@@ -87,7 +101,22 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        if (is_null($user)) {
+            $response = [
+                'message' => 'No user found',
+                'status' => 0
+            ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'message' => 'user found',
+                'status' => 1,
+                'data' => $user
+            ];
+            return response()->json($response, 200);
+        }
     }
 
     /**
